@@ -11,10 +11,13 @@ app.use('/',express.static(__dirname + '/public'))
 
 
 app.listen (process.env.PORT || 5000 , ()=>{
-    console.log(`listnening on port ${process.env.PORT} (Backup Port-5000)`);
+    console.log(`listnening on port ${process.env.PORT}`);
 })
 
-console.log(process.env.DB_HOST);
+app.get('/play', (req,res) =>{
+    res.render('playClassic')
+})
+
 
 const db = knex({
     client:'pg',
@@ -27,8 +30,10 @@ const db = knex({
         }
     })
 
-db
-.select('word_text')
-.from('words')
-.then(data => console.log(data))
-.catch(err=>console.log('catch Err',err))
+
+
+// db
+// .select('word_text')
+// .from('words')
+// .then(data => console.log(data))
+// .catch(err=>console.log('catch Err',err))
