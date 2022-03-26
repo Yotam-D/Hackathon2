@@ -3,13 +3,16 @@ const dotenv = require('dotenv')
 const knex = require('knex')
 const cors = require('cors')
 const login = require('./db.js')
+const bodyParser = require('body-parser')
 const app = express()
 dotenv.config()
-let user = {};
+let userInfo = {};
 
 app.set('view engine', 'ejs')
 app.use(cors())
 app.use('/',express.static(__dirname + '/public'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.listen (process.env.PORT || 5000 , ()=>{
     console.log(`listening on port ${process.env.PORT}`);
@@ -31,15 +34,17 @@ app.get('/play', (req,res) =>{
     })
     
 app.post('/login',(req,res) =>{
-    console.log('user info', req.body);
-    console.log(login.validate('yotam','123456',db));
-    if(login.validate('yotam','123456',db)){
-            res.send({status: 'valid user'})
-        }
-        else{
-            res.send({status: 'invalid user'})
-        }
-    })
+    login.validate(req.body.username,req.body.password,db)
+    .then(validateRes => {
+        if(validateRes){
+                userInfo =  login.getUserInfo(req.body.username,req.body.password,db)
+                console.log(userInfo);
+                res.send({status: 'valid user'})
+            }
+            else{res.send({status: 'invalid user'})}
+        })
+    });
 
+// console.log(login.getUserInfo("yotam","123456",db));
 
 

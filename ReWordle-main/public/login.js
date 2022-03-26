@@ -14,11 +14,11 @@ async function postOnLogin(e){
     })
     .then(res => {
         if (res.status == 'valid user') {
-            console.log("valid")
+            console.log("valid user")
             document.forms[0].submit();
         }
         else{
-            console.log("invalid user");
+            alert("invalid user");
         }
     })
     .catch((error) => {

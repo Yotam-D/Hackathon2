@@ -3,8 +3,7 @@ let currentInd = 1;
 let keyBtns = document.querySelectorAll('button')
 keyBtns.forEach(button=>button.addEventListener('click', pressButton))
 
-function getWord(params) {
-    
+function getWord(params) {   
 }
 
 
