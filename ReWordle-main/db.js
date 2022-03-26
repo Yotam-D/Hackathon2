@@ -9,13 +9,13 @@ async function validate(userName,pass,db) {
 }
 
 async function getUserInfo(userName,pass,db){
-    await db('users')
+    let info = await db('users')
+    .join('words', 'users.progress', '=', 'words.word_id')
     .then(data => {
-        let gotUser = data.find(user =>(user.username==userName && user.password == pass))
-        console.log(gotUser);
-        return gotUser
-    })
-    }
+        return data.find(user =>(user.username==userName && user.password == pass))
+        })
+    return info;
+}
 
 
 module.exports ={

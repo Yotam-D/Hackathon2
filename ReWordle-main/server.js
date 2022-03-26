@@ -37,14 +37,18 @@ app.post('/login',(req,res) =>{
     login.validate(req.body.username,req.body.password,db)
     .then(validateRes => {
         if(validateRes){
-                userInfo =  login.getUserInfo(req.body.username,req.body.password,db)
-                console.log(userInfo);
+                login.getUserInfo(req.body.username,req.body.password,db)
+                    .then(info => setUserInfo(info))
+                    .catch(err => console.log("unable to get info :", err))
                 res.send({status: 'valid user'})
             }
             else{res.send({status: 'invalid user'})}
         })
     });
 
-// console.log(login.getUserInfo("yotam","123456",db));
 
 
+function setUserInfo(Info) {
+    userInfo = Info;
+    console.log("changed user info:", userInfo);
+    }

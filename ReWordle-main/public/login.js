@@ -1,5 +1,6 @@
 let userIn = document.getElementById('InputUser')
 let passwordIn = document.getElementById('InputPassword')
+let userInfo ={};
 
 async function postOnLogin(e){
     e.preventDefault()
@@ -14,6 +15,7 @@ async function postOnLogin(e){
     })
     .then(res => {
         if (res.status == 'valid user') {
+            userInfo = {userStat: "valid_user"}
             console.log("valid user")
             document.forms[0].submit();
         }
