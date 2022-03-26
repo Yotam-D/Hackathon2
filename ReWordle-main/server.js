@@ -2,22 +2,18 @@ const express = require('express')
 const dotenv = require('dotenv')
 const knex = require('knex')
 const cors = require('cors')
+const login = require('./db.js')
 const app = express()
 dotenv.config()
+let user = {};
 
 app.set('view engine', 'ejs')
 app.use(cors())
 app.use('/',express.static(__dirname + '/public'))
 
-
 app.listen (process.env.PORT || 5000 , ()=>{
-    console.log(`listnening on port ${process.env.PORT}`);
+    console.log(`listening on port ${process.env.PORT}`);
 })
-
-app.get('/play', (req,res) =>{
-    res.render('playClassic')
-})
-
 
 const db = knex({
     client:'pg',
@@ -30,10 +26,20 @@ const db = knex({
         }
     })
 
+app.get('/play', (req,res) =>{
+        res.render('playClassic')
+    })
+    
+app.post('/login',(req,res) =>{
+    console.log('user info', req.body);
+    console.log(login.validate('yotam','123456',db));
+    if(login.validate('yotam','123456',db)){
+            res.send({status: 'valid user'})
+        }
+        else{
+            res.send({status: 'invalid user'})
+        }
+    })
 
 
-// db
-// .select('word_text')
-// .from('words')
-// .then(data => console.log(data))
-// .catch(err=>console.log('catch Err',err))
+

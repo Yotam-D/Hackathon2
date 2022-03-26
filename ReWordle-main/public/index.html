@@ -12,19 +12,19 @@
 
     <header class="d-flex justify-content-center">ReWordle</header>
     <div class="cointainer pt-4">
-        <form class = "p-3">
+        <form class = "p-3" action="./play" method="GET" onsubmit="return postOnLogin(event)">
             <div class="mb-3">
               <label for="InputUser" class="form-label">Username</label>
-              <input type="text" class="form-control" id="exampleInputUser" aria-describedby="userHelp">
+              <input type="text" class="form-control" id="InputUser" aria-describedby="userHelp">
               <div id="userHelp" class="form-text">Be Creative</div>
             </div>
             <div class="mb-3">
               <label for="InputPassword" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+              <input type="password" class="form-control" id="InputPassword">
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
           </form>
     </div>
-    <!-- <a href="">try</a> -->
+    <script src="./login.js"></script>
 </body>
 </html>
