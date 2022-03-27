@@ -19,3 +19,12 @@ form{
     height: 63vh;
 }
 
+#userHelp{
+    font-size: 15px;
+}
+
+#AlertError{
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+}

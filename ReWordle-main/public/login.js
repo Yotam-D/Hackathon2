@@ -1,5 +1,6 @@
 let userIn = document.getElementById('InputUser')
 let passwordIn = document.getElementById('InputPassword')
+let wrnMsg = document.getElementById('AlertError')
 let userInfo ={};
 
 async function postOnLogin(e){
@@ -20,7 +21,7 @@ async function postOnLogin(e){
             document.forms[0].submit();
         }
         else{
-            alert("invalid user");
+            wrnMsg.innerHTML = "invalid user or password";
         }
     })
     .catch((error) => {

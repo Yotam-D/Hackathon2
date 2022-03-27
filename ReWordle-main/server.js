@@ -28,10 +28,7 @@ const db = knex({
       database : process.env.DB_DATABASE
         }
     })
-
-app.get('/play', (req,res) =>{
-        res.render('playClassic')
-    })
+    
     
 app.post('/login',(req,res) =>{
     login.validate(req.body.username,req.body.password,db)
@@ -45,6 +42,14 @@ app.post('/login',(req,res) =>{
             else{res.send({status: 'invalid user'})}
         })
     });
+app.get('/play', (req,res) =>{
+        res.render('playClassic')
+    })
+
+app.get('/getWord', (req,res) =>{
+    console.log('user word: ', userInfo.word_text);
+    res.send({userWord: userInfo.word_text})
+    })
 
 
 
