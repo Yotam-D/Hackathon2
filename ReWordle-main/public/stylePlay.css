@@ -17,7 +17,6 @@ header{
     font-size: x-large;
     justify-content: space-around;
     align-content: space-around;
-    border: solid 2px black;
     height: 370px;
     width: 370px;
 }
@@ -29,12 +28,13 @@ header{
     font-size: x-large;
     justify-content: space-around;
     align-content: space-around;
-    border: solid 2px black;
     height: 300px;
     width: 600px;
 }
 
 .letter{
+    font-weight: bold;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
