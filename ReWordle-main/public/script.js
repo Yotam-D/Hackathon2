@@ -24,18 +24,22 @@ function setCurrWord(wordObj) {
 
 function pressButton(event) {
     let key = event.target.dataset.key
-    if (key == '←') {
-        deleteLetter();
-    }
-    else if (key == '↵'){
-        if (gssWord.length % 5 ==0 && gssWord.length > 0) {
-        testWord();
-        }
-    }
-
-    else if (rowInd <= 5) {
-        putLetter(key.toUpperCase())
-        
+    console.log(event.target);
+    switch (key) {
+        case '←':
+            deleteLetter();
+            break;
+        case '↵':
+            if (gssWord.length % 5 ==0 && gssWord.length > 0) 
+                testWord();
+            break;
+        case 'restart':
+            resetBoard();
+            break;
+        default:
+            if (rowInd <= 5)
+                    putLetter(key.toUpperCase());
+            break;
     }
 }
 

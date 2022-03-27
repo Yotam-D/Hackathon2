@@ -56,3 +56,15 @@ button {
     align-items: center;
     text-transform: uppercase;
 }
+
+.try{
+    width: 70px;
+    display: inline;
+    border:0;
+    background-color: rgb(108, 177, 6);
+}
+
+.reset{
+    display: inline; 
+    cursor: pointer;
+}
