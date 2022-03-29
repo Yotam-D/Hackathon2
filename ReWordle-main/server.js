@@ -18,6 +18,11 @@ app.listen (process.env.PORT || 5000 , ()=>{
     console.log(`listening on port ${process.env.PORT}`);
 })
 
+function setUserInfo(Info) {
+    userInfo = Info;
+    console.log("changed user info:", userInfo);
+    }
+
 const db = knex({
     client:'pg',
     connection: {
@@ -28,8 +33,7 @@ const db = knex({
       database : process.env.DB_DATABASE
         }
     })
-    
-    
+        
 app.post('/login',(req,res) =>{
     login.validate(req.body.username,req.body.password,db)
     .then(validateRes => {
@@ -41,7 +45,8 @@ app.post('/login',(req,res) =>{
             }
             else{res.send({status: 'invalid user'})}
         })
-    });
+    })
+
 app.get('/play', (req,res) =>{
         res.render('playClassic')
     })
@@ -51,9 +56,7 @@ app.get('/getWord', (req,res) =>{
     res.send({userWord: userInfo.word_text})
     })
 
+app.get('/updateuser', (req,res) =>{
 
-
-function setUserInfo(Info) {
-    userInfo = Info;
-    console.log("changed user info:", userInfo);
-    }
+    // res.send({userWord: userInfo.word_text})
+    })

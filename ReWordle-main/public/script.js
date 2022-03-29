@@ -8,17 +8,17 @@ let keyBtns = document.querySelectorAll('button')
 keyBtns.forEach(button=>button.addEventListener('click', pressButton));
 
 (async function getWord() {   
-let word = await fetch('http://localhost:5000/getWord')
+let getWord = await fetch('http://localhost:5000/getWord')
     .then(response => response.json())
-    .then(data => setCurrWord(data))
+    .then(data => setCurrWord(data.userWord))
     .catch(err => {
         console.error('couldnt get word from server:'+err)
-        setCurrWord({userWord: 'BIRDS'})       //default word in case couldnt get from server
+        setCurrWord('BIRDS')       //default word in case couldnt get from server
     })
 })();
 
-function setCurrWord(wordObj) {
-    currWord = wordObj.userWord.split('')
+function setCurrWord(word) {
+    currWord = word.split('')
     console.log('Set Current Word to:',currWord);
 }
 
@@ -42,7 +42,6 @@ function pressButton(event) {
             break;
     }
 }
-
 
 function putLetter(letter){
     gssWord.push(letter);
@@ -103,4 +102,11 @@ function resetBoard() {
     colInd = 0;
     rowInd = 1;
     gssWord =[]; 
+}
+
+async function progessUser() {
+    let updateWord = await fetch('http://localhost:5000/updateuser')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => {console.error('couldnt update the server:'+err)}
 }
