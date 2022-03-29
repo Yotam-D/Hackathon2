@@ -1,4 +1,6 @@
-header{
+.title{
+    display: flex;
+    justify-content: center;
     font-size: 40px;
     font-weight: bold;
 }
@@ -68,4 +70,10 @@ button {
 .reset{
     display: inline; 
     cursor: pointer;
+}
+
+#wordnum{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
 }

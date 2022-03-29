@@ -20,7 +20,6 @@ app.listen (process.env.PORT || 5000 , ()=>{
 
 function setUserInfo(Info) {
     userInfo = Info;
-    console.log("changed user info:", userInfo);
     }
 
 const db = knex({
@@ -38,7 +37,9 @@ app.post('/login',(req,res) =>{
     login.validate(req.body.username,req.body.password,db)
     .then(validateRes => {
         if(validateRes){
+                // get user Data from server according to username pass validation
                 login.getUserInfo(req.body.username,req.body.password,db)
+                    // setting the user data in local varible "userInfo"
                     .then(info => setUserInfo(info))
                     .catch(err => console.log("unable to get info :", err))
                 res.send({status: 'valid user'})
@@ -52,11 +53,18 @@ app.get('/play', (req,res) =>{
     })
 
 app.get('/getWord', (req,res) =>{
-    console.log('user word: ', userInfo.word_text);
-    res.send({userWord: userInfo.word_text})
+    console.log('user_info::', userInfo);
+    res.send({
+        userWord:userInfo.word_text,
+        wordId:userInfo.word_id
+    })
     })
 
-app.get('/updateuser', (req,res) =>{
-
-    // res.send({userWord: userInfo.word_text})
-    })
+app.get('/updateuser', (req,res)=>{
+    login.updateUser(userInfo,db)
+    .then(login.getUserInfo(userInfo.username,userInfo.password,db)
+    .then(info => setUserInfo(info)))
+    // setting the user data in local varible "userInfo"
+    .catch(err => console.log("unable to get info :", err))
+    console.log('user updated');
+})

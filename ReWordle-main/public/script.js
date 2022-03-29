@@ -6,25 +6,35 @@ let colInd = 0;
 let matchCount = 0;
 let keyBtns = document.querySelectorAll('button')
 keyBtns.forEach(button=>button.addEventListener('click', pressButton));
+getWord();
 
-(async function getWord() {   
-let getWord = await fetch('http://localhost:5000/getWord')
+
+async function getWord() {   
+    let getWord = await fetch('http://localhost:5000/getWord')
     .then(response => response.json())
-    .then(data => setCurrWord(data.userWord))
+    .then(data => {
+        // getting from the server the word and the wordID 
+        setCurrWord(data.userWord, data.wordId)
+        // saving data in case of refresh page
+        sessionStorage.setItem('Userdata', JSON.stringify(data));
+        })
     .catch(err => {
         console.error('couldnt get word from server:'+err)
-        setCurrWord('BIRDS')       //default word in case couldnt get from server
+        let savedData = JSON.parse(sessionStorage.getItem('Userdata'));
+        console.log(savedData)
+        setCurrWord(savedData.userWord, savedData.wordId)       //default word in case couldnt get from server
     })
-})();
+};
 
-function setCurrWord(word) {
+function setCurrWord(word, wordID='Disconnected') {
     currWord = word.split('')
+    document.getElementById('wordnum').innerHTML = `#${wordID}`
     console.log('Set Current Word to:',currWord);
+    console.log('Set Current WordNum to:',wordID);
 }
 
 function pressButton(event) {
     let key = event.target.dataset.key
-    console.log(event.target);
     switch (key) {
         case '←':
             deleteLetter();
@@ -74,10 +84,10 @@ function testWord() {
             butEl.style.backgroundColor = 'red'
         }
     }
-    setTimeout(() => {console.log("timeout", 5000)}, 5000);
+    //Check if the word is the winning word
     if(matchCount == 5){
         if(confirm("you won!, Do you want to play again?")){
-            resetBoard();
+            updateGame()
         };
         return
     } else if ( colInd == 5){
@@ -89,6 +99,17 @@ function testWord() {
     colInd++;
     rowInd = 1;
     gssWord =[];
+}
+
+async function updateGame() {
+    await progessUser()
+    .then(setTimeout(() => {
+        getWord()
+        .then(resetBoard())
+        .catch(err=>console.log(err))
+    }, 3000))
+    
+    
 }
 
 function resetBoard() {
@@ -108,5 +129,5 @@ async function progessUser() {
     let updateWord = await fetch('http://localhost:5000/updateuser')
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(err => {console.error('couldnt update the server:'+err)}
+    .catch(err => console.error('couldnt update the server:'+err))
 }

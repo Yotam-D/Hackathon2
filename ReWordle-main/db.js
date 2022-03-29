@@ -17,8 +17,27 @@ async function getUserInfo(userName,pass,db){
     return info;
 }
 
+async function updateUser(userInfo,db){
+    let user = await db('users')
+    .join('words', 'users.progress', '=', 'words.word_id')
+    .where('userID', '=', `${userInfo.userID}`)
+    .update({
+        progress: userInfo.progress+1,
+        // progress: user_prog+1,
+        thisKeyIsSkipped: undefined
+      })
+    .returning('*')
+
+    .then(data => {
+        return data
+        // .find(user =>(user.userID==user_id))
+        })
+    return user;
+} 
+
 
 module.exports ={
     validate,
-    getUserInfo
+    getUserInfo,
+    updateUser
 }
