@@ -1,4 +1,3 @@
-console.log('hello from script');
 let currWord = [];
 let gssWord = [];
 let rowInd = 1;
