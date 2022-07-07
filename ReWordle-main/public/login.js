@@ -14,9 +14,10 @@ async function postOnLogin(e){
     .then(response => {
         return response.json();
     })
+    //response from server is res.status: 'valid user'/'invalid user'
     .then(res => {
         if (res.status == 'valid user') {
-            userInfo = {userStat: "valid_user"}
+            userInfo = {userState: "valid_user"}
             console.log("valid user")
             document.forms[0].submit();
         }

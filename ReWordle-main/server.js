@@ -33,6 +33,7 @@ const db = knex({
         }
     })
         
+// send the client side answer wether 'valid user' or 'invalid user' after comparing request username and password with the DB data
 app.post('/login',(req,res) =>{
     login.validate(req.body.username,req.body.password,db)
     .then(validateRes => {
@@ -48,12 +49,14 @@ app.post('/login',(req,res) =>{
         })
     })
 
+// renders game page after login completed
 app.get('/play', (req,res) =>{
         res.render('playClassic')
     })
 
+    //send new word and new wrod ID to client
 app.get('/getWord', (req,res) =>{
-    console.log('user_info::', userInfo);
+    console.log('user_info:', userInfo);
     res.send({
         userWord:userInfo.word_text,
         wordId:userInfo.word_id
