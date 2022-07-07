@@ -32,6 +32,7 @@ function setCurrWord(word, wordID='Disconnected') {
     console.log('Set Current WordNum to:',wordID);
 }
 
+//manage actions according to the key pressed on the app keyboard
 function pressButton(event) {
     let key = event.target.dataset.key
     switch (key) {
@@ -52,6 +53,7 @@ function pressButton(event) {
     }
 }
 
+//insert the letter in the current index and increment
 function putLetter(letter){
     gssWord.push(letter);
     console.log(gssWord);
@@ -124,6 +126,7 @@ function resetBoard() {
     gssWord =[]; 
 }
 
+//fetching the server to update the user progress status in the DB
 async function progessUser() {
     let updateWord = await fetch('http://localhost:5000/updateuser')
     .then(response => response.json())
