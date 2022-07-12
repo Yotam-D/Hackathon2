@@ -21,7 +21,8 @@ async function getWord() {
         console.error('couldnt get word from server:'+err)
         let savedData = JSON.parse(sessionStorage.getItem('Userdata'));
         console.log(savedData)
-        setCurrWord(savedData.userWord, savedData.wordId)       //default word in case couldnt get from server
+        // setCurrWord(savedData.userWord, savedData.wordId)       //default word in case couldnt get from server
+        setCurrWord('BIRDS', 1)       //default word 'BIRDS'
     })
 };
 
