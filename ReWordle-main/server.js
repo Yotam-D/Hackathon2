@@ -14,7 +14,7 @@ app.use('/',express.static(__dirname + '/public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.listen (process.env.PORT || 5000 , ()=>{
+app.listen (process.env.PORT, ()=>{
     console.log(`listening on port ${process.env.PORT}`);
 })
 
