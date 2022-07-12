@@ -56,7 +56,6 @@ function pressButton(event) {
 //insert the letter in the current index and increment
 function putLetter(letter){
     gssWord.push(letter);
-    console.log(gssWord);
     let butEl = document.getElementById(`${colInd*5+rowInd}`)
     butEl.innerHTML = letter
     rowInd++;

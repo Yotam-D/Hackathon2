@@ -1,6 +1,6 @@
 async function validate(userName,pass,db) {
     let check = await db
-        .select('username','password').from('users')
+        .select('username','password').from('rewordleusers')
         .then(data => {
             return data.some(user => userName == user.username && pass == user.password)
         })
@@ -9,8 +9,8 @@ async function validate(userName,pass,db) {
 }
 
 async function getUserInfo(userName,pass,db){
-    let info = await db('users')
-    .join('words', 'users.progress', '=', 'words.word_id')
+    let info = await db('rewordleusers')
+    .join('words', 'rewordleusers.progress', '=', 'words.word_id')
     .then(data => {
         return data.find(user =>(user.username==userName && user.password == pass))
         })
@@ -18,8 +18,8 @@ async function getUserInfo(userName,pass,db){
 }
 
 async function updateUser(userInfo,db){
-    let user = await db('users')
-    .join('words', 'users.progress', '=', 'words.word_id')
+    let user = await db('rewordleusers')
+    .join('words', 'rewordleusers.progress', '=', 'words.word_id')
     .where('userID', '=', `${userInfo.userID}`)
     .update({
         progress: userInfo.progress+1,
