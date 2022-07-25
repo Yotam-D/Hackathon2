@@ -9,7 +9,8 @@ getWord();
 
 
 async function getWord() {   
-    let getWord = await fetch('http://localhost:5000/getWord')
+    // let getWord = await fetch('http://localhost:5000/getWord')
+    let getWord = await fetch('/getWord')
     .then(response => response.json())
     .then(data => {
         // getting from the server the word and the wordID 
@@ -128,7 +129,8 @@ function resetBoard() {
 
 //fetching the server to update the user progress status in the DB
 async function progessUser() {
-    let updateWord = await fetch('http://localhost:5000/updateuser')
+    // let updateWord = await fetch('http://localhost:5000/updateuser')
+    let updateWord = await fetch('/updateuser')
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(err => console.error('couldnt update the server:'+err))

@@ -6,7 +6,8 @@ let userInfo ={};
 async function postOnLogin(e){
     e.preventDefault()
     const data = {username: userIn.value, password: passwordIn.value};
-    await fetch('http://localhost:5000/login', {
+    // await fetch('http://localhost:5000/login', {
+    await fetch('/login', {
     method: 'POST', 
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data),
